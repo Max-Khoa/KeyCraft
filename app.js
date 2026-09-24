@@ -77,7 +77,8 @@ function updateStrength(password) {
   strengthText.textContent = labels[score - 1];
   strengthDescription.textContent = descriptions[score - 1];
   entropyLabel.textContent = `${entropy} bit Entropie`;
-  document.querySelectorAll(".strength-meter i, .mini-bars i").forEach((bar, index) => bar.classList.toggle("on", index < score));
+  document.querySelectorAll(".strength-meter i").forEach((bar, index) => bar.classList.toggle("on", index < score));
+  document.querySelectorAll(".mini-bars i").forEach((bar, index) => bar.classList.toggle("on", index < score));
   const guessesPerSecond = 100_000_000_000;
   crackTime.textContent = formatCrackTime(Math.pow(2, entropy) / guessesPerSecond / 2);
 }
