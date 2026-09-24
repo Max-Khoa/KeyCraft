@@ -35,11 +35,11 @@ function generatePassword(length = Number(lengthRange.value)) {
   const sets = activeCharsets();
   if (!sets.length) {
     settingsHint.textContent = "Wähle mindestens einen Zeichensatz aus.";
-    settingsHint.style.color = "#ff8c9d";
+    settingsHint.classList.add("error");
     return "";
   }
   settingsHint.textContent = "Mindestens ein Zeichensatz muss ausgewählt sein.";
-  settingsHint.style.color = "";
+  settingsHint.classList.remove("error");
   const pool = sets.join("");
   const chars = sets.map((set) => set[secureRandomInt(set.length)]);
   while (chars.length < length) chars.push(pool[secureRandomInt(pool.length)]);
@@ -99,7 +99,9 @@ function showToast(message) {
 document.querySelector("#generateButton").addEventListener("click", refresh);
 document.querySelector("#copyButton").addEventListener("click", async () => {
   try {
-    await navigator.clipboard.writeText(output.value || output.textContent);
+    const password = output.value || output.textContent;
+    if (!navigator.clipboard?.writeText) throw new Error("Clipboard API unavailable");
+    await navigator.clipboard.writeText(password);
     showToast("Passwort in die Zwischenablage kopiert");
   } catch {
     showToast("Kopieren nicht möglich — bitte manuell markieren");
@@ -109,7 +111,9 @@ lengthRange.addEventListener("input", () => { lengthValue.textContent = lengthRa
 document.querySelectorAll(".preset").forEach((button) => button.addEventListener("click", () => { lengthRange.value = button.dataset.length; lengthValue.textContent = button.dataset.length; document.querySelectorAll(".preset").forEach((item) => item.classList.toggle("active", item === button)); refresh(); }));
 document.querySelectorAll(".toggle-option input, #excludeAmbiguous").forEach((input) => input.addEventListener("change", refresh));
 document.querySelector("#exportButton").addEventListener("click", () => {
-  const count = Math.min(500, Math.max(1, Number(document.querySelector("#batchCount").value) || 1));
+  const input = document.querySelector("#batchCount");
+  const count = Math.min(500, Math.max(1, Number(input.value) || 1));
+  input.value = count;
   const passwords = Array.from({ length: count }, () => generatePassword()).filter(Boolean);
   if (passwords.length !== count) return;
   const blob = new Blob([`${passwords.join("\n")}\n`], { type: "text/plain;charset=utf-8" });
@@ -117,7 +121,7 @@ document.querySelector("#exportButton").addEventListener("click", () => {
   link.href = URL.createObjectURL(blob);
   link.download = `keycraft-passwoerter-${count}.txt`;
   link.click();
-  URL.revokeObjectURL(link.href);
+  window.setTimeout(() => URL.revokeObjectURL(link.href), 1000);
   showToast(`${count} Passwörter als TXT exportiert`);
 });
 

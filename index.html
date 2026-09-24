@@ -16,15 +16,16 @@
         <a class="brand" href="#" aria-label="KeyCraft Startseite"><span class="brand-mark">K</span><span>Key<span class="brand-accent">Craft</span></span></a>
         <div class="security-pill"><span class="status-dot"></span>100% lokal &amp; sicher</div>
       </header>
-      <section class="intro">
+      <section class="intro" aria-labelledby="page-title">
         <p class="eyebrow">SECURE PASSWORD STUDIO</p>
-        <h1>Schlüssel, die <span>niemand errät.</span></h1>
+        <h1 id="page-title">Schlüssel, die <span>niemand errät.</span></h1>
         <p class="intro-copy">Erstelle starke, wirklich zufällige Passwörter — direkt auf deinem Gerät und ohne dass Daten irgendwo gespeichert werden.</p>
       </section>
       <section class="workspace">
         <section class="generator-card card">
           <div class="card-heading"><div><p class="section-kicker">01 / GENERATOR</p><h2>Dein Passwort</h2></div><span class="lock-icon" aria-hidden="true">⌁</span></div>
           <div class="password-output"><output id="passwordOutput" aria-live="polite">K6!vQ8#nR2@pL7$x</output><button id="copyButton" class="icon-button" type="button" aria-label="Passwort kopieren" title="Kopieren">⧉</button></div>
+          <p class="recommendation"><span aria-hidden="true">✦</span> Empfehlung: 64+ Zeichen für wichtige Konten</p>
           <div class="strength-row"><div class="strength-label"><span id="strengthLabel">Sehr stark</span><span id="entropyLabel">104 bit Entropie</span></div><div class="strength-meter" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div></div>
           <button id="generateButton" class="primary-button" type="button"><span>↻</span> Neues Passwort generieren</button>
         </section>
@@ -39,13 +40,13 @@
             <label class="toggle-option"><input id="symbols" type="checkbox" checked /><span class="checkmark">✓</span><span><b>Sonderzeichen</b><small>! @ # $ %</small></span></label>
           </div>
           <label class="exclude-option"><input id="excludeAmbiguous" type="checkbox" checked /><span class="small-check">✓</span> Ähnliche Zeichen ausschließen <span class="help" title="Schließt 0, O, l, 1 und I aus">?</span></label>
-          <p id="settingsHint" class="settings-hint">Mindestens ein Zeichensatz muss ausgewählt sein.</p>
+          <p id="settingsHint" class="settings-hint" role="status">Mindestens ein Zeichensatz muss ausgewählt sein.</p>
         </section>
       </section>
       <section class="insight-grid">
         <article class="insight-card card"><div class="insight-title"><span class="insight-icon purple">◒</span><span>Passwort-Stärke</span></div><strong id="strengthText">Sehr stark</strong><p id="strengthDescription">Hervorragend. Dieses Passwort hält selbst modernen Angriffen stand.</p><div class="mini-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div></article>
         <article class="insight-card card"><div class="insight-title"><span class="insight-icon blue">◷</span><span>Geschätzte Knackzeit</span></div><strong id="crackTime">Jahrhunderte</strong><p>Basierend auf einem hypothetischen Angriff mit 100 Mrd. Versuchen pro Sekunde.</p><div class="time-line"><span></span></div></article>
-        <article class="insight-card card export-card"><div class="insight-title"><span class="insight-icon green">↓</span><span>Passwort-Liste</span></div><strong>Mehrere auf einmal</strong><p>Erstelle bis zu 500 Passwörter und lade sie als TXT-Datei herunter.</p><div class="export-controls"><label for="batchCount">Anzahl</label><input id="batchCount" type="number" min="1" max="500" value="10" /><button id="exportButton" type="button">TXT exportieren <span>↓</span></button></div></article>
+        <article class="insight-card card export-card"><div class="insight-title"><span class="insight-icon green">↓</span><span>Passwort-Liste</span></div><strong>Mehrere auf einmal</strong><p>Erstelle bis zu 500 Passwörter und lade sie als TXT-Datei herunter.</p><div class="export-controls"><label for="batchCount">Anzahl</label><input id="batchCount" type="number" min="1" max="500" value="10" inputmode="numeric" /><button id="exportButton" type="button">TXT exportieren <span>↓</span></button></div></article>
       </section>
       <footer><span>⌾</span> Generierung erfolgt lokal mit <b>window.crypto.getRandomValues()</b> · Deine Passwörter verlassen niemals dieses Gerät.</footer>
     </main>
